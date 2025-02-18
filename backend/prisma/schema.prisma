@@ -11,11 +11,12 @@ datasource db {
 }
 
 model User {
-  id         String    @id @default(uuid())
-  phone      String    @unique
-  password   String
-  created_at DateTime  @default(now())
-  patients   Patient[]
+  id           String        @id @default(uuid())
+  phone        String        @unique
+  password     String
+  created_at   DateTime      @default(now())
+  patients     Patient[]
+  appointments Appointment[]
 
   @@map("users")
 }
@@ -27,7 +28,57 @@ model Patient {
   phone      String   @unique
   created_at DateTime @default(now())
 
-  user User @relation(fields: [user_id], references: [id])
+  user         User          @relation(fields: [user_id], references: [id])
+  appointments Appointment[]
 
   @@map("patients")
+}
+
+model Doctor {
+  id           String @id @default(uuid())
+  firstName    String @map("first_name")
+  lastName     String @map("last_name")
+  city         String
+  state        String
+  specialty    String
+  bio          String
+  picture      String
+  availability String
+  experience   String
+  attendances  String
+  address      String
+
+  created_at   DateTime      @default(now())
+  schedules    Schedule[]
+  appointments Appointment[]
+
+  @@map("doctors")
+}
+
+model Schedule {
+  id         String   @id @default(uuid())
+  doctor_id  String
+  date       DateTime
+  available  Boolean  @default(true)
+  created_at DateTime @default(now())
+
+  doctors Doctor @relation(fields: [doctor_id], references: [id])
+
+  @@map("schedules")
+}
+
+model Appointment {
+  id         String   @id @default(uuid())
+  user_id    String
+  doctor_id  String
+  patient_id String
+  date       DateTime
+  made       Boolean  @default(false)
+  created_at DateTime @default(now())
+
+  user    User    @relation(fields: [user_id], references: [id])
+  doctor  Doctor  @relation(fields: [doctor_id], references: [id])
+  patient Patient @relation(fields: [patient_id], references: [id])
+
+  @@map("appointments")
 }
