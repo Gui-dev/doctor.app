@@ -1,4 +1,4 @@
-import type { IDoctosRepositoryContract } from '@/app/contracts/repositories/doctors-repository-contract'
+import type { IDoctosRepositoryContract } from '@/app/contracts/repositories/doctors/doctors-repository-contract'
 
 export class ListDoctorUseCase {
   constructor(private doctosRepository: IDoctosRepositoryContract) {}

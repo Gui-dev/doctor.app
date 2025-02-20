@@ -4,6 +4,8 @@ import helmet from 'helmet'
 
 import 'express-async-errors'
 
+import { getDoctorByIdRouter } from './routes/get-doctor-by-id.router'
+import { getPatientByPhoneRouter } from './routes/get-patient-by-phone.router'
 import { listDoctorRouter } from './routes/list-doctors.router'
 
 export class App {
@@ -25,6 +27,8 @@ export class App {
   }
 
   private setRoutes() {
+    this.app.use(getDoctorByIdRouter)
     this.app.use(listDoctorRouter)
+    this.app.use(getPatientByPhoneRouter)
   }
 }
