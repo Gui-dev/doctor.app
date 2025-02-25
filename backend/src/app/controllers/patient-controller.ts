@@ -28,11 +28,6 @@ export class PatientController implements IPatientController {
     response.status(201).json(patient)
   }
 
-  public async createAppointment(
-    request: Request,
-    response: Response,
-  ): Promise<void> {}
-
   public async show(request: Request, response: Response): Promise<void> {
     const { phone } = request.body
     const patientRepository = new PatientsRepository()

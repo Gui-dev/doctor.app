@@ -26,7 +26,7 @@ export class CreatePatientUseCase {
       phone,
       password: hashedPassword,
     })
-    const patient = await this.patientsRepository.createPatient({
+    const patient = await this.patientsRepository.create({
       user_id: user.id,
       name,
       phone,

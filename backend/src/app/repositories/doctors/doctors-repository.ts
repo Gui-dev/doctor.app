@@ -16,7 +16,11 @@ export class DoctorsRepository implements IDoctosRepositoryContract {
   }
 
   public async listDoctors() {
-    const doctors = await prisma.doctor.findMany()
+    const doctors = await prisma.doctor.findMany({
+      include: {
+        schedules: true,
+      },
+    })
     return doctors
   }
 }

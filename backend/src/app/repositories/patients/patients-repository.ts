@@ -4,6 +4,22 @@ import { prisma } from '@/http/shared/prisma'
 import type { Patient } from '@prisma/client'
 
 export class PatientsRepository implements IPatientsRepositoryContract {
+  public async getPatientById(
+    id: string,
+    appointments = false,
+  ): Promise<Patient | null> {
+    const patient = await prisma.patient.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        appointments,
+      },
+    })
+
+    return patient
+  }
+
   public async getPatientByPhone(
     phone: string,
     appointments = false,
@@ -20,7 +36,7 @@ export class PatientsRepository implements IPatientsRepositoryContract {
     return patient
   }
 
-  public async createPatient({
+  public async create({
     user_id,
     name,
     phone,
