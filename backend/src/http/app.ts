@@ -4,6 +4,7 @@ import helmet from 'helmet'
 
 import 'express-async-errors'
 
+import { authenticateRouter } from './routes/authenticate-user.router'
 import { createAppointmentRouter } from './routes/create-appointments.router'
 import { createPatientRouter } from './routes/create-patient.router'
 import { getDoctorByIdRouter } from './routes/get-doctor-by-id.router'
@@ -29,6 +30,7 @@ export class App {
   }
 
   private setRoutes() {
+    this.app.use(authenticateRouter)
     this.app.use(getDoctorByIdRouter)
     this.app.use(listDoctorRouter)
     this.app.use(createPatientRouter)
