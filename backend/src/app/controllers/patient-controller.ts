@@ -6,6 +6,7 @@ import { UsersRepository } from '../repositories/users/users-repository'
 import { CreatePatientUseCase } from '../use-cases/patient/create-patient'
 import { GetPatientByPhoneUseCase } from '../use-cases/patient/get-patient-by-phone'
 import { createPatientValidation } from '../validations/patients/create-patient-validation'
+import { getPatientByPhoneValidation } from '../validations/patients/get-patient-by-phone-validation'
 
 export class PatientController implements IPatientController {
   public async create(request: Request, response: Response): Promise<void> {
@@ -29,7 +30,7 @@ export class PatientController implements IPatientController {
   }
 
   public async show(request: Request, response: Response): Promise<void> {
-    const { phone } = request.body
+    const { phone } = getPatientByPhoneValidation.parse(request.params)
     const patientRepository = new PatientsRepository()
     const getPatientByPhoneUseCase = new GetPatientByPhoneUseCase(
       patientRepository,

@@ -23,13 +23,20 @@ export class PatientsRepository implements IPatientsRepositoryContract {
   public async getPatientByPhone(
     phone: string,
     appointments = false,
+    doctors = false,
   ): Promise<Patient | null> {
     const patient = await prisma.patient.findUnique({
       where: {
         phone,
       },
       include: {
-        appointments,
+        appointments: !appointments
+          ? false
+          : {
+              include: {
+                doctor: doctors,
+              },
+            },
       },
     })
 

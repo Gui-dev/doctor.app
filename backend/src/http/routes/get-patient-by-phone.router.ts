@@ -4,6 +4,6 @@ import { Router } from 'express'
 const getPatientByPhoneRouter = Router()
 const patientController = new PatientController()
 
-getPatientByPhoneRouter.get('/patients/', patientController.show)
+getPatientByPhoneRouter.get('/patients/:phone', patientController.show)
 
 export { getPatientByPhoneRouter }

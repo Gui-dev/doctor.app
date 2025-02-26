@@ -5,9 +5,11 @@ export class GetPatientByPhoneUseCase {
 
   public async execute(phone: string) {
     const INCLUDE_APPOINTMENTS = true
+    const INCLUDE_DOCTORS = true
     const patient = await this.patientsRepository.getPatientByPhone(
       phone,
       INCLUDE_APPOINTMENTS,
+      INCLUDE_DOCTORS,
     )
 
     if (!patient) {

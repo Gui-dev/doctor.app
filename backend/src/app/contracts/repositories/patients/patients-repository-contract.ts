@@ -10,6 +10,7 @@ export interface IPatientsRepositoryContract {
   getPatientByPhone: (
     phone: string,
     appointments?: boolean,
+    doctors?: boolean,
   ) => Promise<Patient | null>
 
   create: (data: ICreatePatientDTO) => Promise<Patient>
