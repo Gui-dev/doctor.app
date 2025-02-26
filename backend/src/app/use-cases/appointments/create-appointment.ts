@@ -1,6 +1,8 @@
 import type { IAppointmentsRepositoryContract } from '@/app/contracts/repositories/appointments/appointments-repository'
 import type { IPatientsRepositoryContract } from '@/app/contracts/repositories/patients/patients-repository-contract'
 import type { ISchedulesRepositoryContract } from '@/app/contracts/repositories/schedules/schedules-repository'
+import { BusinessError } from '@/http/errors/business-error'
+import { NotFoundError } from '@/http/errors/not-found-error'
 
 interface ICreateAppointmentUseCaseProps {
   patient_id: string
@@ -21,14 +23,14 @@ export class CreateAppointmentUseCase {
     const patient = await this.patientsRepository.getPatientById(patient_id)
 
     if (!patient) {
-      throw new Error('Patient not found')
+      throw new NotFoundError('Patient not found')
     }
 
     const scheduleExists =
       await this.schedulesRepository.getScheduleById(schedule_id)
 
     if (!scheduleExists || !scheduleExists.available) {
-      throw new Error('Schedule not available for this date')
+      throw new BusinessError('Schedule not available for this date')
     }
 
     const schedule = await this.schedulesRepository.update({

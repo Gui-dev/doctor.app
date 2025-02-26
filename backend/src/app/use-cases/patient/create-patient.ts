@@ -1,6 +1,7 @@
 import type { IPatientsRepositoryContract } from '@/app/contracts/repositories/patients/patients-repository-contract'
 import type { IUsersRepositoryContract } from '@/app/contracts/repositories/users/users-repository-contract'
 import { hashPassword } from '@/app/helpers/bcrypt-helper'
+import { BadRequestError } from '@/http/errors/bad-request-error'
 
 interface ICreatePatientProps {
   name: string
@@ -18,7 +19,7 @@ export class CreatePatientUseCase {
     const patientExists = await this.patientsRepository.getPatientByPhone(phone)
 
     if (patientExists) {
-      throw new Error('Patient already exists with this phone number')
+      throw new BadRequestError('Patient already exists with this phone number')
     }
 
     const hashedPassword = await hashPassword(password)

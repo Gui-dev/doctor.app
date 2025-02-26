@@ -4,6 +4,7 @@ import helmet from 'helmet'
 
 import 'express-async-errors'
 
+import { errorHandling } from './errors/error-handling'
 import { authenticateRouter } from './routes/authenticate-user.router'
 import { createAppointmentRouter } from './routes/create-appointments.router'
 import { createPatientRouter } from './routes/create-patient.router'
@@ -21,6 +22,7 @@ export class App {
     this.app.use(express.json())
 
     this.setRoutes()
+    this.app.use(errorHandling)
   }
 
   public start(port: number) {

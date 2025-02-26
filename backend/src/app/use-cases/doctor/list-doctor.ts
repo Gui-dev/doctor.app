@@ -1,4 +1,5 @@
 import type { IDoctosRepositoryContract } from '@/app/contracts/repositories/doctors/doctors-repository-contract'
+import { NotFoundError } from '@/http/errors/not-found-error'
 
 export class ListDoctorUseCase {
   constructor(private doctosRepository: IDoctosRepositoryContract) {}
@@ -7,7 +8,7 @@ export class ListDoctorUseCase {
     const doctors = await this.doctosRepository.listDoctors()
 
     if (!doctors) {
-      throw new Error('Doctors not found')
+      throw new NotFoundError('Doctors not found')
     }
 
     return {

@@ -1,4 +1,5 @@
 import type { IPatientsRepositoryContract } from '@/app/contracts/repositories/patients/patients-repository-contract'
+import { NotFoundError } from '@/http/errors/not-found-error'
 
 export class GetPatientByPhoneUseCase {
   constructor(private patientsRepository: IPatientsRepositoryContract) {}
@@ -13,7 +14,7 @@ export class GetPatientByPhoneUseCase {
     )
 
     if (!patient) {
-      throw new Error('Patient not found')
+      throw new NotFoundError('Patient not found')
     }
 
     return {
