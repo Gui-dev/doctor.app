@@ -29,9 +29,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.variable} ${source.variable} bg-gray-950 text-gray-50 antialiased`}
+        className={`${roboto.variable} ${source.variable} bg-gray-700 text-gray-50 antialiased`}
       >
-        {children}
+        <div className="m-auto mt-4 w-full max-w-[382px] rounded-3xl bg-gray-950 px-6 py-6 shadow-md">
+          {children}
+        </div>
       </body>
     </html>
   )

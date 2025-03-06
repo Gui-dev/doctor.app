@@ -1,21 +1,21 @@
+import clsx from 'clsx'
 import type { SVGProps } from 'react'
 
-type IconName = 'appointment' | 'arrow-left' | 'home' | 'eye-off' | 'eye-on'
+export type IconName =
+  | 'appointment'
+  | 'arrow-left'
+  | 'home'
+  | 'eye-off'
+  | 'eye-on'
 
 type IconProps = SVGProps<SVGSVGElement> & {
   name: IconName
-  childrenClassName?: string
 }
 
-export const Icon = ({
-  name,
-  children,
-  childrenClassName,
-  ...rest
-}: IconProps) => {
+export const Icon = ({ name, children, className, ...rest }: IconProps) => {
   if (children) {
     return (
-      <span className={`flex items-center gap-2 ${childrenClassName}`}>
+      <span className={clsx('flex items-center gap-2', className)}>
         <Icon name={name} {...rest} />
         {children}
       </span>
@@ -25,7 +25,7 @@ export const Icon = ({
   return (
     <>
       {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
-      <svg {...rest}>
+      <svg {...rest} className={clsx(className)}>
         <use href={`./sprite.svg#${name}`} />
       </svg>
     </>
