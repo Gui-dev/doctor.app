@@ -7,6 +7,7 @@ export type IconName =
   | 'home'
   | 'eye-off'
   | 'eye-on'
+  | 'map'
 
 type IconProps = SVGProps<SVGSVGElement> & {
   name: IconName
@@ -15,8 +16,8 @@ type IconProps = SVGProps<SVGSVGElement> & {
 export const Icon = ({ name, children, className, ...rest }: IconProps) => {
   if (children) {
     return (
-      <span className={clsx('flex items-center gap-2', className)}>
-        <Icon name={name} {...rest} />
+      <span className={clsx('flex flex-row items-center gap-1')}>
+        <Icon name={name} {...rest} className={clsx(className)} />
         {children}
       </span>
     )
